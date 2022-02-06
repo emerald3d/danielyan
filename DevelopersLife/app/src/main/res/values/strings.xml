@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Developers Life</string>
+    <string name="next_button">Следующая -></string>
+    <string name="previous_button">Предыдущая</string>
+</resources>
