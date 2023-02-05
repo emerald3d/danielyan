@@ -45,8 +45,6 @@ fun PopularScreen(
 
     val service = Service.create()
     var films = rememberSaveable() { mutableStateOf(listOf<MiniFilmResponse>()) }
-    //var isLoadingDone by remember { mutableStateOf(false) }
-    //var isLoadingDone = rememberSaveable() { mutableStateOf(false) }
 
     if(status == ConnectivityObserver.Status.Available)
         if (films.value.size == 0)
