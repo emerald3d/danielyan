@@ -46,7 +46,7 @@ fun PopularScreen(
             films.value = produceState<List<MiniFilmResponse>>(
                 initialValue = emptyList(),
                 producer = {
-                    value = service.getFilmsTop(5).films //стандартный запрос API (TOP_100_POPULAR_FILMS) выдает первую страницу
+                    value = service.getFilmsTop(1).films //стандартный запрос API (TOP_100_POPULAR_FILMS) выдает первую страницу
                 }
             ).value
 
