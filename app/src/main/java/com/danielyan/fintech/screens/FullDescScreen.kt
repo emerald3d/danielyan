@@ -19,14 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-//import androidx.navigation.NavController
-//import androidx.navigation.NavHostController
-//import androidx.navigation.compose.NavHost
 import coil.compose.AsyncImage
-import com.danielyan.fintech.InternetError
 import com.danielyan.fintech.network.data.FilmResponse
 import com.danielyan.fintech.network.data.Service
 import com.danielyan.fintech.network.observer.ConnectivityObserver
+import com.danielyan.fintech.screens.composable.InternetError
+import com.danielyan.fintech.screens.composable.ProgressIndicator
 
 @SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
@@ -36,6 +34,7 @@ fun FullDescScreen(
     filmId: Int) {
 
     val scrollState = rememberScrollState()
+
     val service = Service.create()
     val status by connectivityObserver.observe().collectAsState(
         initial = ConnectivityObserver.Status.Unavailable
@@ -53,7 +52,7 @@ fun FullDescScreen(
     )
 
     if (status == ConnectivityObserver.Status.Available) {
-        film = produceState<FilmResponse>(
+        film = produceState(
             initialValue = FilmResponse(
                 -1,
                 "",
@@ -100,7 +99,7 @@ fun FullDescScreen(
                         ProgressIndicator()
                     }
             } else {
-                Box() {
+                Box {
                     Column(
                         modifier = Modifier
                             .verticalScroll(scrollState)
@@ -114,9 +113,6 @@ fun FullDescScreen(
                                 model =  (film.posterUrl),
                                 contentDescription = null,
                                 contentScale = ContentScale.FillWidth,
-                                onLoading = {
-
-                                },
                             )
                         }
                         Column(modifier = Modifier
@@ -126,10 +122,10 @@ fun FullDescScreen(
                             Text(film.nameRu.toString(), fontSize = 22.sp, fontWeight = FontWeight.Bold, color = MaterialTheme.colors.onBackground)
                             Surface(modifier = Modifier.height(12.dp))  {}
                             Text(film.description.toString(), color = MaterialTheme.colors.secondary)
-                            var genreList =  listOf<String>()
+                            val genreList =  mutableListOf<String>()
                             film.genres.forEach { genreList += it.genre }
                             Text("Жанры: ${genreList.toString().replace("[", "").replace("]", "")}", color = MaterialTheme.colors.secondary, modifier = Modifier.padding(vertical = 4.dp))
-                            var countriesList =  listOf<String>()
+                            val countriesList =  mutableListOf<String>()
                             film.countries.forEach { countriesList += it.country }
                             Text("Страны: ${countriesList.toString().replace("[", "").replace("]", "")}", color = MaterialTheme.colors.secondary, modifier = Modifier.padding(vertical = 4.dp))
                             Surface(modifier = Modifier.height(21.dp))  {}
