@@ -34,11 +34,11 @@ fun PopularScreen(
     navController: NavController,
     connectivityObserver: ConnectivityObserver
 ) {
+    val service = Service.create()
     val status by connectivityObserver.observe().collectAsState(
         initial = ConnectivityObserver.Status.Unavailable
     )
 
-    val service = Service.create()
     val films = rememberSaveable { mutableStateOf(listOf<MiniFilmResponse>()) }
 
     if(status == ConnectivityObserver.Status.Available)
@@ -64,7 +64,9 @@ fun PopularScreen(
                     onClick = {},
                     shape = RoundedCornerShape(50),
                     elevation = null,
-                    colors = ButtonDefaults.textButtonColors(backgroundColor = MaterialTheme.colors.primaryVariant),
+                    colors = ButtonDefaults.textButtonColors(
+                        backgroundColor = MaterialTheme.colors.primaryVariant
+                    ),
                     modifier = Modifier
                         .weight(1f)
                         .fillMaxHeight()
@@ -115,7 +117,8 @@ fun PopularScreen(
                     FilmCard(
                         navController = navController,
                         title = "${ item.nameRu }",
-                        genre = "${ item.genres[0].genre.replaceFirstChar{ it.uppercaseChar() }}",
+                        genre = "${ item.genres[0].genre
+                            .replaceFirstChar{ it.uppercaseChar() }}",
                         year = "${ item.year }",
                         url = "${ item.posterUrlPreview }",
                         id = "${ item.filmId }")
@@ -136,11 +139,19 @@ fun PopularScreen(
 @Composable
 fun TopAppBar(title: String) {
     TopAppBar(
-        title = { Text(text = title, fontSize = 27.sp, fontWeight = FontWeight.Bold) },
+        title = {
+            Text(
+                text = title,
+                fontSize = 27.sp,
+                fontWeight = FontWeight.Bold)
+                },
         elevation = 0.dp,
         actions = {
             IconButton(onClick = { /* поиск :) */ }) {
-                Icon(Icons.Filled.Search, contentDescription = "Localized description", tint = MaterialTheme.colors.primary)
+                Icon(
+                    Icons.Filled.Search,
+                    contentDescription = "Localized description",
+                    tint = MaterialTheme.colors.primary)
             }
         },
         backgroundColor = Color.Transparent

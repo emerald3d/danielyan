@@ -43,7 +43,9 @@ fun FavoriteScreen(
                     onClick = {},
                     shape = RoundedCornerShape(50),
                     elevation = null,
-                    colors = ButtonDefaults.textButtonColors(backgroundColor = MaterialTheme.colors.primaryVariant),
+                    colors = ButtonDefaults.textButtonColors(
+                        backgroundColor = MaterialTheme.colors.primaryVariant
+                    ),
                     modifier = Modifier
                     .weight(1f)
                     .fillMaxHeight()

@@ -2,15 +2,18 @@ package com.danielyan.fintech.network.data
 
 import io.ktor.client.*
 import io.ktor.client.request.*
+import kotlin.text.get
 
 class Impl(
     private val client: HttpClient
 ): Service {
 
+    private val KEY = "e30ffed0-76ab-4dd6-b41f-4c9da2b2735b"
+
     override suspend fun getFilmsTop(pageId: Int): FilmsTopResponse {
         return try { client.get {
             url("https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS&page=$pageId")
-            header("X-API-KEY", "e30ffed0-76ab-4dd6-b41f-4c9da2b2735b")
+            header("X-API-KEY", KEY)
         }
         } catch(e: Exception) {
             FilmsTopResponse(
@@ -32,7 +35,7 @@ class Impl(
     override suspend fun getFilm(filmId: Int): FilmResponse {
         return try { client.get {
             url("https://kinopoiskapiunofficial.tech/api/v2.2/films/$filmId")
-            header("X-API-KEY", "e30ffed0-76ab-4dd6-b41f-4c9da2b2735b")}
+            header("X-API-KEY", KEY)}
         } catch(e: Exception) {
             FilmResponse(
                 0,
@@ -49,7 +52,7 @@ class Impl(
     override suspend fun getFilmsTopPagesCount(): FilmsTopPagesCountResponse {
         return try { client.get {
             url("https://kinopoiskapiunofficial.tech/api/v2.2/films/top?type=TOP_100_POPULAR_FILMS")
-            header("X-API-KEY", "e30ffed0-76ab-4dd6-b41f-4c9da2b2735b")}
+            header("X-API-KEY", KEY)}
         } catch(e: Exception) {
             FilmsTopPagesCountResponse(
                 pagesCount = 0
